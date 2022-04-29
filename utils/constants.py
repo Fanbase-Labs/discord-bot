@@ -1,14 +1,16 @@
 import os
+
 from web3 import Web3
 
-NETWORK = os.environ.get("NETWORK", "opt-mainnet")
-ALCHEMY_API_KEY = os.environ.get("ALCHEMY_API_KEY")
+NETWORK = os.environ.get("NETWORK", "opt-mainnet")  # Required: opt-mainnet or arb-mainnet
+ALCHEMY_API_KEY = os.environ.get("ALCHEMY_API_KEY")  # Required: your (free) Alchemy API key
 
-DISCORD_CHANNEL = os.getenv('DISCORD_CHANNEL')
-DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
+# https://github.com/0xEssential/opensea-discord-bot#prerequisites
+DISCORD_CHANNEL = os.getenv('DISCORD_CHANNEL')  # Required
+DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')  # Required
 
-COLLECTION_TYPE = os.environ.get("COLLECTION_TYPE", "721")
-COLLECTION_ADDRESS = os.environ.get("COLLECTION_ADDRESS")
+COLLECTION_TYPE = os.environ.get("COLLECTION_TYPE", "721")  # Required: 721 or 1155
+COLLECTION_ADDRESS = os.environ.get("COLLECTION_ADDRESS")  # Required: your contract address
 
 if NETWORK == "opt-mainnet":
     WEBSITE_URL = "https://quixotic.io"

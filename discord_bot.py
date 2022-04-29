@@ -9,15 +9,17 @@ from web3 import Web3
 
 from utils.Erc1155Contract import Erc1155Contract
 from utils.Erc721Contract import Erc721Contract
-from utils.constants import w3, NETWORK, ALCHEMY_API_KEY, DISCORD_CHANNEL, DISCORD_TOKEN, COLLECTION_TYPE, COLLECTION_ADDRESS, WEBSITE_URL, EXCHANGE_CONTRACT, ERC_721_SAFE_TRANSFER_TOPIC, ERC_1155_SAFE_TRANSFER_TOPIC
-
+from utils.constants import w3, NETWORK, ALCHEMY_API_KEY, DISCORD_CHANNEL, DISCORD_TOKEN, COLLECTION_TYPE, \
+    COLLECTION_ADDRESS, WEBSITE_URL, EXCHANGE_CONTRACT, ERC_721_SAFE_TRANSFER_TOPIC, ERC_1155_SAFE_TRANSFER_TOPIC
 
 client = discord.Client()
+
 
 @client.event
 async def on_ready():
     print("Connected to Discord")
     await alchemy_websocket()
+
 
 @client.event
 async def on_error(self):
@@ -107,13 +109,16 @@ async def alchemy_websocket():
         else:
             return
 
+        print(req)
         await websocket.send(req)
 
         async for message_str in websocket:
             message = json.loads(message_str)
+            print(message)
             params = message.get('params')
             if params:
                 transfer_event = params['result']
                 asyncio.create_task(send_discord_message(transfer_event))
+
 
 asyncio.run(client.run(DISCORD_TOKEN, reconnect=True))
